@@ -1,0 +1,23 @@
+.card {
+  background: linear-gradient(to bottom, #ffe5ec, #f8d6e1);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 200px;
+}
+
+.card-content {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+.card-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
