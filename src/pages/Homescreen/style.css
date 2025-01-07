@@ -4,6 +4,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 30px;
   max-width: 200px;
+  max-height: 100px;
+
 }
 
 .card-content {
@@ -20,4 +22,40 @@
 .card-text {
   font-size: 0.9rem;
   margin-top: 5px;
+}
+
+.table-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 85%;
+
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  font-weight: bold;
+}
+
+.ban {
+  background-color: #cfe7cf;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.unban {
+  background-color: #e7cfde;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
 }
