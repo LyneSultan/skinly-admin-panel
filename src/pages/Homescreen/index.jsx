@@ -1,50 +1,61 @@
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import './../../style/base.css';
 import './style.css';
+
 const HomeScreen = () => {
+  const apiUrl = process.env.REACT_APP_SERVER_API;
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/users/");
+      setUsers(response.data.users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <div >
-      <div className="card flex justify-center align-center">
-        <div className="card-content ">
-          <div className='flex space-around'>
-            <div className="card-number">32</div>
-            <img src="/images/user.png" />
-          </div>
-
-          <div className="card-text">Number of Skinly Users</div>
-
-        </div>
-      </div>
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Users</th>
-              <th>Companies</th>
-            </tr>
-            <tr>
-              <th>User's name</th>
-              <th>nb of requests</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...Array(5)].map((_, index) => (
-              <tr key={index}>
-                <td>Lyne</td>
-                <td>10</td>
-                <td>
-                  <button className="ban">Ban</button>
-                  <button className="unban">Unban</button>
-                </td>
-              </tr>
+      <Typography variant="h4" gutterBottom>
+        Users List
+      </Typography>
+      <div class="table-container" >
+        <Table >
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Ban Status</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user._id}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.ban ? "Banned" : "Active"}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color={user.ban ? "success" : "error"}
+                  >
+                    {user.ban ? "Unban" : "Ban"}
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-        <div className="view-more">View more</div>
+          </TableBody>
+        </Table>
       </div>
     </div>
-
-  )
-}
+  );
+};
 
 export default HomeScreen;
