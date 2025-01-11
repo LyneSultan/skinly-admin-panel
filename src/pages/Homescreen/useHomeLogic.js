@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import serverRoutes from "../../routes/serverRoutes";
 
 const useHomeLogic = () => {
   const apiUrl = process.env.REACT_APP_SERVER_API;
@@ -8,7 +9,8 @@ const useHomeLogic = () => {
   const [view, setView] = useState("users");
   const getUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/users/");
+      console.log(apiUrl + serverRoutes.getUsers);
+      const response = await axios.get(apiUrl+serverRoutes.getUsers);
       setUsers(response.data.users);
       console.log(response.data.users);
     } catch (error) {
