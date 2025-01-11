@@ -1,3 +1,41 @@
+@import './../../colors/colors.css';
+
+.navbar {
+  background-color: #333;
+  padding: 15px 0;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover {
+  color: #f0a500;
+}
+
 .card {
   background: linear-gradient(to bottom, #ffe5ec, #f8d6e1);
   border-radius: 12px;
@@ -25,37 +63,8 @@
 }
 
 .table-container {
-  border: 1px solid #ccc;
   padding: 20px;
-  background-color: #fff;
   border-radius: 20px;
-  width: 85%;
-
-}
-
-th,
-td {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-th {
-  font-weight: bold;
-}
-
-.ban {
-  background-color: #cfe7cf;
-  border: none;
-  padding: 10px;
-  border-radius: 15px;
-  cursor: pointer;
-}
-
-.unban {
-  background-color: #e7cfde;
-  border: none;
-  padding: 10px;
-  border-radius: 15px;
-  cursor: pointer;
+  max-width: 90%;
+  display: flex;
 }
