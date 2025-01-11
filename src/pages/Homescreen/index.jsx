@@ -1,6 +1,7 @@
 import { Button, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import DashboardCard from "../../components/InfoCard";
 import './../../style/base.css';
 import './style.css';
 
@@ -41,7 +42,6 @@ const HomeScreen = () => {
 
   return (
     <div>
-      {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-logo">
@@ -53,7 +53,15 @@ const HomeScreen = () => {
           </div>
         </div>
       </nav>
+      <div></div>
+      <div class='flex' style={{ gap: '20px' }}>
+        <DashboardCard
+          number="32"
+          text="New User This Week"
+          icon="https://cdn-icons-png.flaticon.com/512/747/747376.png"
+        />
 
+      </div>
       <div className="flex space-around">
         <button onClick={() => handleViewChange("users")} className="view-toggle-btn">Users</button>
         <button onClick={() => handleViewChange("companies")} className="view-toggle-btn">Companies</button>
