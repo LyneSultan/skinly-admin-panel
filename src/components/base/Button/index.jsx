@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const BasicButton = ({ title, onClick }) => {
+const Button = ({ title, onClick }) => {
   return (
     <button className="basic-button" onClick={onClick || (() => {})}>
       {title}
@@ -9,4 +9,4 @@ const BasicButton = ({ title, onClick }) => {
   );
 };
 
-export default BasicButton;
+export default Button;
