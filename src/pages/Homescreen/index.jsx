@@ -55,6 +55,24 @@ const HomeScreen = () => {
     }
   };
 
+  const unban = async (userId) => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx5bmUiLCJzdWIiOiI2NzZmMzE2MjE1Y2FiMjUyMGM1NjI4MGIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzY2MzI5NDQsImV4cCI6MTczNjYzNjU0NH0.EWJS3pmpEOtK8w72m84LdxOTyemeOOJCqpXuPguE_dA"; // Static token
+      const response = await axios.get(`http://localhost:3000/users/unban/${userId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === userId ? { ...user, ban: false } : user
+        )
+      );
+    } catch (error) {
+      console.error("Error unbanning user:", error);
+    }
+  };
 
   const handleViewChange = (viewType) => {
     setView(viewType);
