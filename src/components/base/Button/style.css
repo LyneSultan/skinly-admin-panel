@@ -1,0 +1,17 @@
+@import './../../../colors/colors.css';
+
+.basic-button {
+  background-color:var(--secondary-color) ;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.basic-button:hover {
+  background-color: #45a049;
+}
