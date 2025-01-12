@@ -7,7 +7,7 @@ import './style.css';
 import useHomeLogic from "./useHomeLogic";
 
 const HomeScreen = () => {
-  const {view,handleViewChange,users,companies,ban,unban, } = useHomeLogic();
+  const {view,handleViewChange,users,companies,ban,unban,removeCompany } = useHomeLogic();
   return (
     <div>
       <nav class="navbar">
@@ -89,7 +89,7 @@ const HomeScreen = () => {
                         <TableCell>
                           <Button
                             title="Remove"
-                            onClick={() =>console.log("here") }
+                            onClick={() => removeCompany(company._id)}
                           />
                         </TableCell>
                       </TableRow>
