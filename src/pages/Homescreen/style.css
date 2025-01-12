@@ -68,3 +68,20 @@
   max-width: 90%;
   display: flex;
 }
+.toggle-Container{
+  max-width: 30%;
+}
+.view-toggle {
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.view-toggle:hover {
+  transform: scale(1.05);
+}
+
+.view-toggle:active {
+  background-color:#D16F9A
+}
