@@ -1,13 +1,19 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { PieChart } from '@mui/x-charts/PieChart';
 import React from "react";
 import Button from "../../components/base/Button";
-import DashboardCard from "../../components/InfoCard";
 import './../../style/base.css';
 import './style.css';
 import useHomeLogic from "./useHomeLogic";
 
 const HomeScreen = () => {
-  const {view,handleViewChange,users,companies,ban,unban,removeCompany } = useHomeLogic();
+  const { view, handleViewChange, users, companies, ban, unban, removeCompany } = useHomeLogic();
+  const chartData = companies.map((company, index) => ({
+    id: index,
+    value: company.productCount || 0, // Using productCount as the value
+    label: company.name, // Company name as the label
+  }));
+
   return (
     <div>
       <nav class="navbar">
@@ -22,17 +28,15 @@ const HomeScreen = () => {
         </div>
       </nav>
       <div></div>
-      <div class='flex' style={{ gap: '20px' }}>
-        <DashboardCard
-          number="32"
-          text="New User This Week"
-          icon="https://cdn-icons-png.flaticon.com/512/747/747376.png"
-        />
 
-      </div>
+
       <div className="flex space-around toggle-Container">
-          <div onClick={() => handleViewChange("users")} className="view-toggle">Users</div>
-           <div onClick={() => handleViewChange("companies")} className="view-toggle">Companies</div>
+        <div onClick={() => handleViewChange("users")} className={`view-toggle ${view === "users" ? "active" : ""}`} >
+          Users
+        </div>
+        <div onClick={() => handleViewChange("companies")} className={`view-toggle ${view === "companies" ? "active" : ""}`}>
+          Companies
+        </div>
       </div>
 
       <div style={{ padding: '20px' }}>
@@ -67,9 +71,9 @@ const HomeScreen = () => {
             </div>
           </>
         ) : (
-          <>
-            <h2>Companies List</h2>
-            <div className="table-container">
+          <div class="flex wrap">
+              <div className="table-container">
+
               <Table>
                 <TableHead>
                   <TableRow>
@@ -102,9 +106,21 @@ const HomeScreen = () => {
                     </TableRow>
                   )}
                 </TableBody>
-              </Table>
-            </div>
-          </>
+                </Table>
+
+              </div>
+
+              <PieChart
+                colors={['#E179A7', '#CBDDD1', '#FFEFF1']}
+      series={[
+        {
+          data: chartData, // Use the mapped chart data here
+        },
+      ]}
+      width={400}
+      height={200}
+    />
+          </div>
         )}
       </div>
     </div>
