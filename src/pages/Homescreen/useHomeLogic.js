@@ -32,7 +32,11 @@ const useHomeLogic = () => {
   };
   const removeCompany = async (companyId) => {
     try {
-      await axios.delete(`${apiUrl}/company/${companyId}`);
+      await axios.delete(`${apiUrl}/company/${companyId}`, {
+        headers: {
+          Authorization: adminToken,
+        },
+      });
       setCompanies((prevCompanies) =>
         prevCompanies.filter((company) => company._id !== companyId)
       );
