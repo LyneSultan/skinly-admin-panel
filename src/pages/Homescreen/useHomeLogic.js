@@ -4,6 +4,9 @@ import serverRoutes from "../../routes/serverRoutes";
 
 const useHomeLogic = () => {
   const apiUrl = process.env.REACT_APP_SERVER_API;
+  const adminToken = process.env.REACT_APP_ADMIN_TOKEN;
+  console.log(adminToken)
+
   const [users, setUsers] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [view, setView] = useState("users");
@@ -20,13 +23,25 @@ const useHomeLogic = () => {
 
   const getCompanies = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/company/");
+      const response = await axios.get(apiUrl+serverRoutes.getCompanies);
       console.log(response.data);
       setCompanies(response.data);
     } catch (error) {
       console.error("Error fetching companies:", error);
     }
   };
+  const removeCompany = async (companyId) => {
+    try {
+      await axios.delete(`${apiUrl}/company/${companyId}`);
+      setCompanies((prevCompanies) =>
+        prevCompanies.filter((company) => company._id !== companyId)
+      );
+      console.log("Company removed successfully");
+    } catch (error) {
+      console.error("Failed to remove company:", error);
+    }
+  };
+
 
   useEffect(() => {
     getUsers();
@@ -34,10 +49,9 @@ const useHomeLogic = () => {
   }, []);
   const ban = async (userId) => {
     try {
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx5bmUiLCJzdWIiOiI2NzZmMzE2MjE1Y2FiMjUyMGM1NjI4MGIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzY2MzI5NDQsImV4cCI6MTczNjYzNjU0NH0.EWJS3pmpEOtK8w72m84LdxOTyemeOOJCqpXuPguE_dA"; // Static token
       const response = await axios.get(`http://localhost:3000/users/ban/${userId}`, {
         headers: {
-          Authorization: token,
+          Authorization: adminToken,
         },
       });
       console.log(response.data);
@@ -56,10 +70,11 @@ const useHomeLogic = () => {
 
   const unban = async (userId) => {
     try {
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx5bmUiLCJzdWIiOiI2NzZmMzE2MjE1Y2FiMjUyMGM1NjI4MGIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzY2MzI5NDQsImV4cCI6MTczNjYzNjU0NH0.EWJS3pmpEOtK8w72m84LdxOTyemeOOJCqpXuPguE_dA"; // Static token
       const response = await axios.get(`http://localhost:3000/users/unban/${userId}`, {
         headers: {
-          Authorization: token,
+
+
+          Authorization: adminToken,
         },
       });
 
@@ -80,7 +95,7 @@ const useHomeLogic = () => {
     ban,
     unban,
     getUsers,users,
-    getCompanies, companies,
+    getCompanies, companies,removeCompany,
     handleViewChange,view
   }
 
