@@ -30,9 +30,9 @@ const HomeScreen = () => {
         />
 
       </div>
-      <div className="flex space-around">
-        <button onClick={() => handleViewChange("users")} class="view-toggle-btn">Users</button>
-        <button onClick={() => handleViewChange("companies")} class="view-toggle-btn">Companies</button>
+      <div className="flex space-around toggle-Container">
+          <div onClick={() => handleViewChange("users")} className="view-toggle">Users</div>
+           <div onClick={() => handleViewChange("companies")} className="view-toggle">Companies</div>
       </div>
 
       <div style={{ padding: '20px' }}>
