@@ -69,16 +69,40 @@ const HomeScreen = () => {
         ) : (
           <>
             <h2>Companies List</h2>
-            <div class="companies-list">
-              {companies.length > 0 ? (
-                <ul>
-                  {companies.map((company) => (
-                    <li key={company._id}>{company.name}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No companies available.</p>
-              )}
+            <div className="table-container">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Company Name</TableCell>
+                    <TableCell>Number of Products</TableCell>
+                    <TableCell>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {companies.length > 0 ? (
+                    companies.map((company) => (
+                      <TableRow key={company._id}>
+                        <TableCell>{company.name}</TableCell>
+                        <TableCell>
+                          {company.productCount || 0}
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            title="Remove"
+                            onClick={() =>console.log("here") }
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={3} align="center">
+                        No companies available.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </>
         )}
