@@ -64,6 +64,7 @@
 
 .table-container {
   padding: 20px;
+  flex: 4;
   border-radius: 20px;
   max-width: 90%;
   display: flex;
@@ -82,6 +83,38 @@
   transform: scale(1.05);
 }
 
-.view-toggle:active {
-  background-color:#D16F9A
+.flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
+
+.view-toggle {
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s;
+  color: #333;
+}
+
+.view-toggle.active {
+  color: #D16F9A; /* Highlight the active text */
+}
+
+.view-toggle.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px; /* Position the underline below the text */
+  left: 0;
+  right: 0;
+  height: 2px; /* Thickness of the underline */
+  background-color: #D16F9A; /* Match the highlight color */
+  transition: background-color 0.3s;
+}
+
+.view-toggle:hover {
+  color: #D16F9A; /* Hover effect matches active color */
+}
+
