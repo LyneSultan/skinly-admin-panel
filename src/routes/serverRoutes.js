@@ -1,4 +1,5 @@
 const serverRoutes = {
-  getUsers:"users"
+  getUsers: "users",
+  getCompanies:"company"
 }
 export default serverRoutes;
