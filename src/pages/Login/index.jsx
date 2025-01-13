@@ -34,43 +34,22 @@ const Login = () => {
     <Box className="login-container">
       <Paper elevation={6} className="login-paper">
         <Box className="login-form">
+
           <Avatar className="login-avatar">
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Admin Login
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleLogin();
-            }}
-            sx={{ mt: 3 }}
-          >
-            <Input
-              id="email"
-              label="Email Address"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              id="password"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "#D16F9A" }}
-            >
-              Login
-            </Button>
+
+          <Typography component="h1" variant="h5"> Admin Login </Typography>
+
+          <Box component="form" noValidate onSubmit={(e) => { e.preventDefault(); handleLogin(); }} sx={{ mt: 3 }}>
+
+            <Input id="email" label="Email Address" type="email"
+              value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input id="password" label="Password" type="password"
+              value={password} onChange={(e) => setPassword(e.target.value)} />
+
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, backgroundColor: "#D16F9A" }} >Login </Button>
+
           </Box>
         </Box>
       </Paper>
