@@ -1,5 +1,8 @@
 const serverRoutes = {
   getUsers: "users",
-  getCompanies:"company"
+  getCompanies: "company",
+  login: "auth/login",
+  ban: "users/ban",
+  unban: "users/unban"
 }
 export default serverRoutes;
