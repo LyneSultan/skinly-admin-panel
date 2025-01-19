@@ -1,22 +1,17 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { PieChart } from '@mui/x-charts/PieChart';
 import React from "react";
-import Button from "../../components/base/Button";
+import CompaniesTable from "../../components/CompaniesTable";
+import UsersTable from "../../components/UsersTable";
 import './../../style/base.css';
 import './style.css';
 import useHomeLogic from "./useHomeLogic";
 
 const HomeScreen = () => {
   const { view, handleViewChange, users, companies, ban, unban, removeCompany } = useHomeLogic();
-  const chartData = companies.map((company, index) => ({
-    id: index,
-    value: company.productCount || 0, // Using productCount as the value
-    label: company.name, // Company name as the label
-  }));
+  const chartData = companies.map((company, index) => ({ id: index, value: company.productCount || 0, label: company.name, }));
 
   return (
     <div style={{ display: 'flex' }}>
-
       <div style={{ flexGrow: 1, padding: '20px' }}>
 
         <div className="flex space-around toggle-Container">
@@ -32,71 +27,24 @@ const HomeScreen = () => {
           {view === "users" ? (
             <>
               <h2>Users List</h2>
-              <div className="table-container">
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Email</TableCell>
-                      <TableCell>Ban Status</TableCell>
-                      <TableCell>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {users.map((user) => (
-                      <TableRow key={user._id}>
-                        <TableCell>{user.name}</TableCell>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>{user.ban ? "Banned" : "Active"}</TableCell>
-                        <TableCell>
-                          <Button title={user.ban ? "Unban" : "Ban"} onClick={() => user.ban ? unban(user._id) : ban(user._id)} />
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+              <UsersTable users={users} ban={ban} unban={unban} />
             </>
           ) : (
-            <div className="flex wrap">
-              <div className="table-container">
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Company Name</TableCell>
-                      <TableCell>Number of Products</TableCell>
-                      <TableCell>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {companies.length > 0 ? (
-                      companies.map((company) => (
-                        <TableRow key={company._id}>
-                          <TableCell>{company.name}</TableCell>
-                          <TableCell>{company.productCount || 0}</TableCell>
-                          <TableCell>
-                            <Button title="Remove" onClick={() => removeCompany(company._id)} />
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={3} align="center">
-                          No companies available.
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
+            <>
+              <h2>Companies List</h2>
 
-              <PieChart
-                colors={['#E179A7', '#CBDDD1', '#FFEFF1']}
-                series={[{ data: chartData }]}
-                width={400}
-                height={200}
-              />
-            </div>
+              <div className="flex wrap">
+
+                <CompaniesTable companies={companies} removeCompany={removeCompany} />
+
+                <PieChart
+                  colors={['#E179A7', '#CBDDD1', '#FFEFF1']}
+                  series={[{ data: chartData }]}
+                  width={400}
+                  height={200}
+                />
+              </div>
+            </>
           )}
         </div>
       </div>
