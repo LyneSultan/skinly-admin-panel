@@ -1,7 +1,8 @@
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MailIcon from '@mui/icons-material/Mail';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -85,32 +86,57 @@ export default function Layout({ children }) {
 
   const sidebarContent = (
     <>
-      <DrawerHeader>
+      <DrawerHeader sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Typography variant="h6" >
+          Skinly
+        </Typography>
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>
+
       </DrawerHeader>
       <Divider />
-      <List>
-      {[
-        { text: 'Dashboard', icon: <InboxIcon />, link: '/dashboard' },
-        { text: 'Add Company', icon: <MailIcon />, link: '/add-company' },
-      ].map((item) => (
-        <ListItem key={item.text} disablePadding>
-          <ListItemButton component="a" href={item.link}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <List>
+          {[
+            { text: 'Dashboard', icon: <DashboardIcon />, link: '/home' },
+            { text: 'Add Company', icon: <AddCircleOutlineIcon />, link: '/add-company' },
+          ].map((item) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton component="a" href={item.link}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <Box sx={{ mt: 'auto', }}>
+          <Divider />
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  window.location.href = '/';
+                }}
+              >
+                <ListItemIcon>
+                  <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Box>
     </>
   );
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open } sx={{ backgroundColor: '#CBDDD1' }}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: '#CBDDD1' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -122,7 +148,7 @@ export default function Layout({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Admin Panel
+            Skinly
           </Typography>
         </Toolbar>
       </AppBar>
