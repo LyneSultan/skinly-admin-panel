@@ -4,16 +4,20 @@ import serverRoutes from "../../routes/serverRoutes";
 
 const useHomeLogic = () => {
   const apiUrl = process.env.REACT_APP_SERVER_API;
-  const adminToken = process.env.REACT_APP_ADMIN_TOKEN;
-  console.log(adminToken)
+  const adminToken = localStorage.token;
 
   const [users, setUsers] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [view, setView] = useState("users");
+
   const getUsers = async () => {
     try {
       console.log(apiUrl + serverRoutes.getUsers);
-      const response = await axios.get(apiUrl+serverRoutes.getUsers);
+      const response = await axios.get(apiUrl + serverRoutes.getUsers, {
+        headers: {
+          "Authorization": adminToken
+        }
+      });
       setUsers(response.data.users);
       console.log(response.data.users);
     } catch (error) {
@@ -23,7 +27,11 @@ const useHomeLogic = () => {
 
   const getCompanies = async () => {
     try {
-      const response = await axios.get(apiUrl+serverRoutes.getCompanies);
+      const response = await axios.get(apiUrl + serverRoutes.getCompanies, {
+        headers: {
+          "Authorization": adminToken
+        }
+      });
       console.log(response.data);
       setCompanies(response.data);
     } catch (error) {
@@ -32,7 +40,7 @@ const useHomeLogic = () => {
   };
   const removeCompany = async (companyId) => {
     try {
-      await axios.delete(`${apiUrl}/company/${companyId}`, {
+      await axios.delete(`${apiUrl}company/${companyId}`, {
         headers: {
           Authorization: adminToken,
         },
@@ -51,9 +59,10 @@ const useHomeLogic = () => {
     getUsers();
     getCompanies();
   }, []);
+
   const ban = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/users/ban/${userId}`, {
+      const response = await axios.get(`${apiUrl}users/ban/${userId}`, {
         headers: {
           Authorization: adminToken,
         },
@@ -74,10 +83,8 @@ const useHomeLogic = () => {
 
   const unban = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/users/unban/${userId}`, {
+      const response = await axios.get(`${apiUrl}users/unban/${userId}`, {
         headers: {
-
-
           Authorization: adminToken,
         },
       });
@@ -95,15 +102,14 @@ const useHomeLogic = () => {
   const handleViewChange = (viewType) => {
     setView(viewType);
   };
+
   return {
     ban,
     unban,
-    getUsers,users,
-    getCompanies, companies,removeCompany,
-    handleViewChange,view
+    getUsers, users,
+    getCompanies, companies, removeCompany,
+    handleViewChange, view
   }
-
-
 
 }
 export default useHomeLogic;
